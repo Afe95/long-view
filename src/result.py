@@ -1,13 +1,16 @@
 class Result(object):
 
   def __init__(self, results):
-    self.hthg = results[0]
-    self.htag = results[1]
-    self.htr = results[2]
+    """
+    fthg, ftag, ftr, hthg, htag, htr
+    """
+    self.hthg = results[3]
+    self.htag = results[4]
+    self.htr = results[5]
 
-    self.fthg = results[3]
-    self.ftag = results[4]
-    self.ftr = results[5]
+    self.fthg = results[0]
+    self.ftag = results[1]
+    self.ftr = results[2]
 
   def resultHalfTime(self):
     return self.htr

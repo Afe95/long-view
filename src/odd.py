@@ -19,21 +19,30 @@ class Odd(object):
     self.bDraw = None
     self.bAway = None
 
-    self.bestHome()
-    self.bestDraw()
-    self.bestAway()
+    self.calcHome()
+    self.calcDraw()
+    self.calcAway()
 
-  def bestHome(self):
+  def calcHome(self):
     tmpMax = max(self.b365[0], self.bs[0], self.bw[0], self.gb[0], self.iw[0], self.lb[0], self.ps[0], self.so[0], self.sb[0], self.sj[0], self.sy[0], self.vc[0], self.wh[0])
     self.bHome = tmpMax
 
-  def bestDraw(self):
+  def calcDraw(self):
     tmpMax = max(self.b365[1], self.bs[1], self.bw[1], self.gb[1], self.iw[1], self.lb[1], self.ps[1], self.so[1], self.sb[1], self.sj[1], self.sy[1], self.vc[1], self.wh[1])
     self.bDraw = tmpMax
 
-  def bestAway(self):
+  def calcAway(self):
     tmpMax = max(self.b365[2], self.bs[2], self.bw[2], self.gb[2], self.iw[2], self.lb[2], self.ps[2], self.so[2], self.sb[2], self.sj[2], self.sy[2], self.vc[2], self.wh[2])
     self.bAway = tmpMax
+
+  def bestHome(self):
+    return self.bHome
+
+  def bestDraw(self):
+    return self.bDraw
+
+  def bestAway(self):
+    return self.bAway
 
   def best(self):
     return (self.bHome, self.bDraw, self.bAway)

@@ -3,6 +3,7 @@
 import sys
 import src.database as db
 import src.timer as timer
+import src.portfolio as p
 import strategies.winnerStrategy as st
 
 if __name__ == "__main__":
@@ -33,7 +34,12 @@ if __name__ == "__main__":
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league)
   timer = timer.Timer(database, season, league)
+  portfolio = p.Portfolio(100, 0.3)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()
-    strategy.toBet(nextMatch)
+    bet = strategy.toBet(nextMatch)
+    if bet != None:
+      portfolio.riskAndBet(bet)
+
+  print portfolio

@@ -1,5 +1,6 @@
 import src.strategy as s
 import src.table as t
+import src.bet as b
 
 class WinnerStrategy(s.Strategy):
 
@@ -16,8 +17,9 @@ class WinnerStrategy(s.Strategy):
 
   def toBet(self, match):
     league = match.getLeague()
-    firstTeamPreviousSeason = self.table.getFirst(league).getClub()
+    firstPreviousSeason = self.table.getFirst(league)
     actualMatch = match.teamsPlaying()
-    if firstTeamPreviousSeason in actualMatch:
-      print match
-      return True
+    odds = match.isInFavour(firstPreviousSeason)
+    if firstPreviousSeason.getClub() in actualMatch and odds != None:
+      return b.Bet(odds, match)
+    return None

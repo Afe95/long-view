@@ -14,9 +14,9 @@ class TableEntry(object):
 
     self.increment = 0.01
 
-    self.pWin = None
-    self.pDraw = None
-    self.pLoose = None
+    self.probWin = None
+    self.probDraw = None
+    self.probLoose = None
     self.getProbabilities()
 
   def getLeague(self):
@@ -28,12 +28,15 @@ class TableEntry(object):
   def getClub(self):
     return self.club
 
+  def pWin(self):
+    return self.probWin
+
   def getProbabilities(self):
-    self.pWin = 1 - (self.won / self.played)
-    self.pWin = round(self.pWin + self.increment, 2)
+    self.probWin = 2 - (self.won / self.played)
+    self.probWin = round(self.probWin + self.increment, 2)
 
-    self.pDraw = 1 - (self.drawn / self.played)
-    self.pDraw = round(self.pDraw + self.increment, 2)
+    self.probDraw = 2 - (self.drawn / self.played)
+    self.probDraw = round(self.probDraw + self.increment, 2)
 
-    self.pLoose = 1 - (self.lost / self.played)
-    self.pLoose = round(self.pLoose + self.increment, 2)
+    self.probLoose = 2 - (self.lost / self.played)
+    self.probLoose = round(self.probLoose + self.increment, 2)
