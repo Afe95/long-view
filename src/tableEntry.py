@@ -19,6 +19,15 @@ class TableEntry(object):
     self.pLoose = None
     self.getProbabilities()
 
+  def getLeague(self):
+    return self.league
+
+  def getPosition(self):
+    return self.position
+
+  def getClub(self):
+    return self.club
+
   def getProbabilities(self):
     self.pWin = 1 - (self.won / self.played)
     self.pWin = round(self.pWin + self.increment, 2)

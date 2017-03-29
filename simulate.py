@@ -30,8 +30,10 @@ if __name__ == "__main__":
   database = db.Database("localhost", "long-view", "afe", "1bellazio")
   database.connect()
 
-  strategy = st.WinnerStrategy(database, season, league)
+  seasonForStrategy = seasons[seasons.index(season) - 1]
+  strategy = st.WinnerStrategy(database, seasonForStrategy, league)
   timer = timer.Timer(database, season, league)
 
   while not timer.isEnded():
-    print timer.nextMatch()
+    nextMatch = timer.nextMatch()
+    strategy.toBet(nextMatch)

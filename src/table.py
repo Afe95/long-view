@@ -12,11 +12,10 @@ class Table(object):
       entry = te.TableEntry(row)
       self.listOfPositions.append(entry)
 
-  def getNumber(self, num):
-    return self.listOfPositions[num]
+  def getNumber(self, num, league):
+    for r in self.listOfPositions:
+      if r.getPosition() == num and r.getLeague() == league:
+        return r
 
-  def getFirst(self):
-    return self.getNumber(1)
-
-  def getLast(self):
-    return self.getNumber(-1)
+  def getFirst(self, league):
+    return self.getNumber(1, league)

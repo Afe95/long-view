@@ -15,4 +15,9 @@ class WinnerStrategy(s.Strategy):
     self.table = t.Table(table)
 
   def toBet(self, match):
-    pass
+    league = match.getLeague()
+    firstTeamPreviousSeason = self.table.getFirst(league).getClub()
+    actualMatch = match.teamsPlaying()
+    if firstTeamPreviousSeason in actualMatch:
+      print match
+      return True
