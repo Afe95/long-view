@@ -3,6 +3,19 @@ import src.timer as t
 import src.portfolio as p
 import strategies.winnerStrategy as st
 
+"""
+Initialise strategy
+Initialise brokers
+
+While matches
+  if to bet
+    determine risk
+    bet
+    update portfolio
+
+print stats
+"""
+
 def startSimulation(season, league):
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]

@@ -17,18 +17,6 @@ if __name__ == "__main__":
   except IndexError:
     pass
 
-  """
-  Initialise strategy
-  Initialise brokers
-
-  While matches
-    if to bet
-      determine risk
-      bet
-      update portfolio
-
-  print stats
-  """
   if league != None:
     s.startSimulation(season, league)
   else:
