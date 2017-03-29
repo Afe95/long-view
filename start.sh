@@ -1,1 +1,1 @@
-python simulate.py 1516 F1
+python main.py 1617
