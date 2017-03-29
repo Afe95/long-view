@@ -2,6 +2,7 @@
 
 import sys
 import src.database as db
+import src.timer as timer
 import strategies.winnerStrategy as st
 
 if __name__ == "__main__":
@@ -29,5 +30,5 @@ if __name__ == "__main__":
   database = db.Database("localhost", "long-view", "afe", "1bellazio")
   database.connect()
 
-  table = database.getTable(season, league)
-  strategy = st.WinnerStrategy()
+  strategy = st.WinnerStrategy(database, season, league)
+  timer = timer.Timer(database, season, league)

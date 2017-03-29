@@ -11,8 +11,8 @@ class Database(object):
     self.cur = None
 
   def connect(self):
-    self.conn = psycopg2.connect(database=self.database, user=self.user, password=self.password, host=self.host)
-    self.cur = conn.cursor()
+    self.conn = pg.connect(database=self.database, user=self.user, password=self.password, host=self.host)
+    self.cur = self.conn.cursor()
 
   def disconnect(self):
     self.cur.close()
