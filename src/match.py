@@ -13,3 +13,9 @@ class Match(object):
     self.awayTeam = row[3]
     self.result = r.Result(row[4:10])
     self.odds = o.Odd(row[10:])
+
+  def __str__(self):
+    return "{0}\t{1}\t{2:<15}\t{3:<15}\t\t{4}\t{5}".format(self.league, self.data, self.homeTeam, self.awayTeam, self.result.resultFullTime(), self.odds.best())
+
+  def __repr__(self):
+    return self.__str__()

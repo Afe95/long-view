@@ -17,10 +17,10 @@ class Timer(object):
       self.listOfMatches.append(tmpMatch)
 
   def isEnded(self):
-    return self.timeIndex != len(listOfMatches)
+    return self.timeIndex == len(self.listOfMatches)
 
   def nextMatch(self):
-    if self.timeIndex != len(listOfMatches):
+    if self.timeIndex != len(self.listOfMatches):
       self.timeIndex += 1
       return self.listOfMatches[self.timeIndex - 1]
     return None

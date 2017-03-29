@@ -32,3 +32,6 @@ if __name__ == "__main__":
 
   strategy = st.WinnerStrategy(database, season, league)
   timer = timer.Timer(database, season, league)
+
+  while not timer.isEnded():
+    print timer.nextMatch()
