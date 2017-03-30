@@ -1,1 +1,3 @@
-python main.py 1617 E0
+season=1516
+echo $season
+python main.py $season

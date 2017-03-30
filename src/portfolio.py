@@ -6,7 +6,7 @@ import stats as s
 
 class Portfolio(object):
 
-  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0):
+  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
     self.deposit = 0
     self.index = 2
     self.percentageToDeposit = percentageToDeposit #0.67
@@ -40,11 +40,10 @@ class Portfolio(object):
   def fibonacci(self, bet):
     fraction = self.fibNumber(self.index)
     bet.updateFraction(fraction)
-    amountBet = fraction
+    amountBet = fraction * 1300
     self.account -= min(amountBet, self.account)
     odds = bet.gain()
     gain = round(amountBet * odds, 2)
-    amountToDeposit = gain * self.percentageToDeposit
     if bet.isWin():
       self.fibGoDown()
     else:
@@ -62,8 +61,6 @@ class Portfolio(object):
     self.account -= amountBet    
     odds = bet.gain()
     gain = round(amountBet * odds, 2)
-    amountToDeposit = gain * self.percentageToDeposit
-
     return gain
 
   def getCapital(self):
@@ -78,6 +75,8 @@ class Portfolio(object):
   def fibGoDown(self):
     if self.index >= 4:
       self.index -= 2
+    if self.index == 3:
+      self.index = 2
 
   def fibNumber(self, n):
     golden = constants.golden
@@ -85,7 +84,7 @@ class Portfolio(object):
     return int(fib)
 
   def __str__(self):
-    return "{0}\t{1:>6.2f}".format(self.stat, self.account + self.deposit)
+    return "{0}\t{1:>10.2f}".format(self.stat, self.account + self.deposit)
 
   def __repr__(self):
     return self.__str__()

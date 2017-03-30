@@ -1,3 +1,5 @@
+import numpy as np
+
 class Statistic(object):
 
   def __init__(self, detailedStats=False):
@@ -32,7 +34,16 @@ class Statistic(object):
         strToPrint += "{0}\n".format(b)
       strToPrint += "\n"
 
-    strToPrint += "numBets={0:<2}\twins={1:<2}\tlosts={2:<2}".format(self.numBets, self.numWins, self.numLoss)
+    xs = []
+    xs.append(100)
+    for b in self.pastBets:
+      xs.append(b.getAccountAfter())
+
+    i = np.argmax(np.maximum.accumulate(xs) - xs)
+    j = np.argmax(xs[:i])
+    maxDD = round(xs[j] - xs[i], 2)
+
+    strToPrint += "numBets={0:<2}\twins={1:<2}\tlosts={2:<2}\tmaxDD={3:<5}".format(self.numBets, self.numWins, self.numLoss, maxDD)
 
     return strToPrint
 

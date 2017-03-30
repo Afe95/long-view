@@ -26,4 +26,4 @@ if __name__ == "__main__":
     for l in leagues:
       cumSum += s.startSimulation(season, l, detailedStats)
 
-    print "\033[1m\n\t\t\t\t       {0:>7}\033[0m".format(cumSum)
+    print "\033[1m\n\t\t\t\t\t\t        {0:>10.2f}\033[0m".format(cumSum)

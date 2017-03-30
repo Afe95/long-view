@@ -29,6 +29,9 @@ class Bet(object):
   def updateFraction(self, fraction):
     self.fraction = fraction
 
+  def getAccountAfter(self):
+    return self.accountAfter
+
   def __str__(self):
     if self.expectedResult != self.match.getResult():
       return "\033[91m{0:<20}\t{1:<20}\t{2:>5}\t\t{3:>3}\t\t{4:.2f}\t{5:>6.2f}\t{6:>10.2f}\t{7:>10.2f}\033[0m".format(self.match.homeTeam, self.match.awayTeam, self.expectedResult, self.match.getResult(), self.odds, self.fraction, self.accountBefore, self.accountAfter)
