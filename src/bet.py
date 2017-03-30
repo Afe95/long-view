@@ -23,8 +23,10 @@ class Bet(object):
   def updateBefore(self, before):
     self.accountBefore = before
 
-  def updateAfter(self, after, fraction):
+  def updateAfter(self, after):
     self.accountAfter = after
+
+  def updateFraction(self, fraction):
     self.fraction = fraction
 
   def __str__(self):

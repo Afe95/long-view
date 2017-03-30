@@ -1,0 +1,4 @@
+- Add max drawdown
+- Add max drawdown duration
+- Add max bets to recover from drawdown
+- Add ratio max drawdown to returns

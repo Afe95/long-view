@@ -16,7 +16,7 @@ While matches
 print stats
 """
 
-def startSimulation(season, league, detailedStats):
+def startSimulation(season, league, detailedStats, percentageToDeposit=0):
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]
   leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
@@ -27,7 +27,7 @@ def startSimulation(season, league, detailedStats):
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league)
   timer = t.Timer(database, season, league)
-  portfolio = p.Portfolio(100, detailedStats=detailedStats)
+  portfolio = p.Portfolio(100, detailedStats=detailedStats, percentageToDeposit=percentageToDeposit)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()
@@ -36,3 +36,5 @@ def startSimulation(season, league, detailedStats):
       portfolio.riskAndBet(bet)
 
   print portfolio
+
+  return portfolio.getCapital()
