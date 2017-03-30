@@ -6,17 +6,17 @@ import stats as s
 
 class Portfolio(object):
 
-  def __init__(self, startingBudget, fixedRisk=0.56, detailedStats=False, percentageToDeposit=0):
+  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0):
     self.deposit = 0
     self.index = 2
-    self.percentageToDeposit = percentageToDeposit
+    self.percentageToDeposit = percentageToDeposit #0.67
     self.account = startingBudget
     self.stat = s.Statistic(detailedStats=detailedStats)
 
   def riskAndBet(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      gain = self.calcFraction(bet, "kelly")
+      gain = self.calcFraction(bet, "fibonacci")
       if bet.isWin():
         amountToDeposit = gain * self.percentageToDeposit
         self.deposit += amountToDeposit
@@ -27,12 +27,29 @@ class Portfolio(object):
         bet.updateAfter(self.account)
         self.stat.loose(bet)
     else:
-      bet.updateAfter(self.account, 0)
+      bet.updateFraction(0)
+      bet.updateAfter(self.account)
       self.stat.noCash(bet)
 
   def calcFraction(self, bet, mode="kelly"):
     if mode is "kelly":
       return self.kelly(bet)
+    elif mode is "fibonacci":
+      return self.fibonacci(bet)
+
+  def fibonacci(self, bet):
+    fraction = self.fibNumber(self.index)
+    bet.updateFraction(fraction)
+    amountBet = fraction
+    self.account -= min(amountBet, self.account)
+    odds = bet.gain()
+    gain = round(amountBet * odds, 2)
+    amountToDeposit = gain * self.percentageToDeposit
+    if bet.isWin():
+      self.fibGoDown()
+    else:
+      self.fibGoUp()
+    return gain
 
   def kelly(self, bet):
     b = bet.gain() - 1
@@ -52,10 +69,20 @@ class Portfolio(object):
   def getCapital(self):
     return self.account + self.deposit
 
+  def fibGoUp(self):
+    if self.index != 9:
+      self.index += 1
+    else:
+      self.index = 2
+
+  def fibGoDown(self):
+    if self.index >= 4:
+      self.index -= 2
+
   def fibNumber(self, n):
     golden = constants.golden
     fib = (math.pow(golden, n) - math.pow(-golden,-n)) / math.sqrt(5)
-    return fib
+    return int(fib)
 
   def __str__(self):
     return "{0}\t{1:>6.2f}".format(self.stat, self.account + self.deposit)

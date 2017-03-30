@@ -11,8 +11,6 @@ if __name__ == "__main__":
 
   season = sys.argv[1]
   league = None
-  fixedRisk = None
-  percentile = None
   detailedStats = True
 
   try:
