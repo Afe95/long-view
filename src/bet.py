@@ -21,8 +21,8 @@ class Bet(object):
 
   def __str__(self):
     if self.expectedResult != self.match.getResult():
-      return "{0:<20}\t{1:<20}\t\t{2}\t{3}\t\t{4}\t{5}".format(self.match.homeTeam, self.match.awayTeam, self.expectedResult, self.match.getResult(), self.accountBefore, self.accountAfter)
-    return "{0:<20}\t{1:<20}\t\t\t\t\t{2}\t{3}".format(self.match.homeTeam, self.match.awayTeam, self.accountBefore, self.accountAfter)
+      return "{0:<20}\t{1:<20}\t\t{2}\t{3}\t\t{4:.2f}\t{5:.2f}\t{6:.2f}".format(self.match.homeTeam, self.match.awayTeam, self.expectedResult, self.match.getResult(), self.odds, self.accountBefore, self.accountAfter)
+    return "{0:<20}\t{1:<20}\t\t\t\t\t{2:.2f}\t{3:.2f}\t{4:.2f}".format(self.match.homeTeam, self.match.awayTeam, self.odds, self.accountBefore, self.accountAfter)
     
   def __repr__(self):
     return self.__str__()
