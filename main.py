@@ -11,14 +11,17 @@ if __name__ == "__main__":
 
   season = sys.argv[1]
   league = None
+  fixedRisk = None
+  percentile = None
+  detailedStats = True
 
   try:
     league = sys.argv[2]
   except IndexError:
-    pass
+    detailedStats = False
 
   if league != None:
-    s.startSimulation(season, league)
+    s.startSimulation(season, league, detailedStats)
   else:
     for l in leagues:
-      s.startSimulation(season, l)
+      s.startSimulation(season, l, detailedStats)

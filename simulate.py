@@ -16,7 +16,7 @@ While matches
 print stats
 """
 
-def startSimulation(season, league):
+def startSimulation(season, league, detailedStats):
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]
   leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
@@ -27,7 +27,7 @@ def startSimulation(season, league):
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league)
   timer = t.Timer(database, season, league)
-  portfolio = p.Portfolio(100, 0.56)
+  portfolio = p.Portfolio(100, detailedStats=detailedStats)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()

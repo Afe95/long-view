@@ -4,11 +4,11 @@ import stats as s
 
 class Portfolio(object):
 
-  def __init__(self, startingBudget, fixedRisk=0.56, percentile=3):
+  def __init__(self, startingBudget, fixedRisk=0.56, percentile=3, detailedStats=False):
     self.account = startingBudget
     self.fixedRisk = fixedRisk
-    self.percentile = 3
-    self.stat = s.Statistic()
+    self.percentile = percentile
+    self.stat = s.Statistic(detailedStats=detailedStats)
 
   def riskAndBet(self, bet):
     bet.updateBefore(self.account)

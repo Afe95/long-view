@@ -1,6 +1,6 @@
 class Statistic(object):
 
-  def __init__(self, detailedStats=True):
+  def __init__(self, detailedStats=False):
     self.numBets = 0
     self.numWins = 0
     self.numLoss = 0
