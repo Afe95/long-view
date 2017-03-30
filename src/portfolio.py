@@ -32,7 +32,10 @@ class Portfolio(object):
     if not useFixedRisk:
       b = bet.gain() - 1
       p = 2 - bet.getPrior()
-      return abs((b*p - (1-p)) / b)
+      fraction = abs((b*p - (1-p)) / b)
+      if fraction >= 0.45:
+        return fraction / 2
+      return fraction
     return self.fixedRisk
 
   def __str__(self):

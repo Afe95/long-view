@@ -1,1 +1,1 @@
-python main.py 1516 D1
+python main.py 1516 E0
