@@ -31,8 +31,8 @@ class Portfolio(object):
   def calcFraction(self, bet, useFixedRisk=False):
     if not useFixedRisk:
       b = bet.gain() - 1
-      p = bet.getPrior()
-      return ((b*p - (1-p)) / b) / self.percentile
+      p = 2 - bet.getPrior()
+      return abs((b*p - (1-p)) / b)
     return self.fixedRisk
 
   def __str__(self):
