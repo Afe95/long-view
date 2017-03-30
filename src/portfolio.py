@@ -16,7 +16,7 @@ class Portfolio(object):
   def riskAndBet(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      gain = self.calcFraction(bet, "fibonacci")
+      gain = self.calcFraction(bet, "kelly")
       if bet.isWin():
         amountToDeposit = gain * self.percentageToDeposit
         self.deposit += amountToDeposit
@@ -40,8 +40,8 @@ class Portfolio(object):
   def fibonacci(self, bet):
     fraction = self.fibNumber(self.index)
     bet.updateFraction(fraction)
-    amountBet = fraction * 1300
-    self.account -= min(amountBet, self.account)
+    amountBet = min(fraction * 5, self.account)
+    self.account -= amountBet
     odds = bet.gain()
     gain = round(amountBet * odds, 2)
     if bet.isWin():
