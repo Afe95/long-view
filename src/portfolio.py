@@ -22,7 +22,7 @@ class Portfolio(object):
         self.stat.loose(bet)
 
   def __str__(self):
-    return "{0}\t\t{1:.2f}".format(self.stat, self.account)
+    return "{0}\t{1:.2f}".format(self.stat, self.account)
 
   def __repr__(self):
     return self.__str__()

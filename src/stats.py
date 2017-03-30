@@ -1,10 +1,11 @@
 class Statistic(object):
 
-  def __init__(self):
+  def __init__(self, detailedStats=False):
     self.numBets = 0
     self.numWins = 0
     self.numLoss = 0
     self.pastBets = []
+    self.detailedStats = detailedStats
 
   def win(self, bet):
     self.numBets += 1
@@ -19,10 +20,12 @@ class Statistic(object):
   def __str__(self):
     strToPrint = ""
 
-    for b in self.pastBets:
-      strToPrint += "{0}\n".format(b)
+    if self.detailedStats:
+      for b in self.pastBets:
+        strToPrint += "{0}\n".format(b)
+      strToPrint += "\n"
 
-    strToPrint += "\nnumBets={0}\twins={1}\tlosts={2}".format(self.numBets, self.numWins, self.numLoss)
+    strToPrint += "numBets={0:<2}\twins={1:<2}\tlosts={2:<2}".format(self.numBets, self.numWins, self.numLoss)
 
     return strToPrint
 
