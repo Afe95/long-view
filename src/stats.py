@@ -1,6 +1,6 @@
 class Statistic(object):
 
-  def __init__(self, detailedStats=False):
+  def __init__(self, detailedStats=True):
     self.numBets = 0
     self.numWins = 0
     self.numLoss = 0
@@ -17,10 +17,17 @@ class Statistic(object):
     self.numLoss += 1
     self.pastBets.append(bet)
 
+  def noCash(self, bet):
+    self.numBets += 1
+    self.pastBets.append(bet)
+
   def __str__(self):
     strToPrint = ""
 
     if self.detailedStats:
+      strToPrint += "=============================================================================================================================\n"
+      strToPrint += "Home Team\t\tAway Team\t\tExpected\tActual\t\tOdds\tFraction    Before\t     After\n"
+      strToPrint += "=============================================================================================================================\n"
       for b in self.pastBets:
         strToPrint += "{0}\n".format(b)
       strToPrint += "\n"

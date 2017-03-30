@@ -20,13 +20,13 @@ class Match(object):
 
     if firstTeam == self.homeTeam:
       odds = self.odds.bestHome()      
-      if odds >= pWin:
-        return (odds, 'H')
+      if odds > pWin:
+        return (odds, 'H', pWin)
 
     elif firstTeam == self.awayTeam:
       odds = self.odds.bestAway()
-      if odds >= pWin:
-        return (odds, 'A')
+      if odds > pWin:
+        return (odds, 'A', pWin)
 
     return None
 
