@@ -1,5 +1,3 @@
-import bcolors
-
 class Bet(object):
 
   def __init__(self, odds, match):

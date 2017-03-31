@@ -1,4 +1,4 @@
-import tableEntry as te
+import src.tableEntry as te
 
 class Table(object):
 

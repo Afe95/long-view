@@ -32,4 +32,4 @@ if __name__ == "__main__":
     startBudget = len(leagues) * 100
     ratio = round(((cumSum / startBudget) - 1) * 100, 2)
 
-    print "\033[1m\n\t\t\t\t\t{0:>6.2f}%         {1:>10.2f}\033[0m".format(ratio, cumSum)
+    print("\033[1m\n\t\t\t\t\t{0:>6.2f}%         {1:>10.2f}\033[0m".format(ratio, cumSum))

@@ -1,5 +1,5 @@
-import result as r
-import odd as o
+import src.result as r
+import src.odd as o
 
 class Match(object):
 

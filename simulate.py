@@ -37,6 +37,6 @@ def startSimulation(season, league, detailedStats):
     if bet != None:
       portfolio.calculate(bet)
 
-  print portfolio
+  print(portfolio)
 
   return portfolio.getCapital()

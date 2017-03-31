@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 import math
 import scipy.constants as constants
-import stats as s
+import src.stats as s
 
 class Portfolio(object):
 
