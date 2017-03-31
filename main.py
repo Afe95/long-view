@@ -22,8 +22,11 @@ if __name__ == "__main__":
     detailedStats = False
 
   if league != None:
+    print("\033[1m{0} {1}\n\033[0m".format(season, league))
     s.startSimulation(season, league, detailedStats)
   else:
+    print("\033[1m{0} {1}\n\033[0m".format(season, leagues))
+
     cumSum = 0
 
     for l in leagues:

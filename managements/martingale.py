@@ -5,7 +5,7 @@ import src.portfolio as p
 
 class Martingale(p.Portfolio):
 
-  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
+  def __init__(self, startingBudget, detailedStats, percentageToDeposit=0.67):
     super(Martingale, self).__init__(startingBudget, detailedStats, percentageToDeposit)
     self.prog = 10
 

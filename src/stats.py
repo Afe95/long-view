@@ -2,7 +2,7 @@ import numpy as np
 
 class Statistic(object):
 
-  def __init__(self, detailedStats=False):
+  def __init__(self, detailedStats):
     self.numBets = 0
     self.numWins = 0
     self.numLoss = 0

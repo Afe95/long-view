@@ -9,11 +9,11 @@ class Portfolio(object):
 
   __metaclass__ = ABCMeta
 
-  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
+  def __init__(self, startingBudget, detailedStats, percentageToDeposit):
     self.deposit = 0
     self.percentageToDeposit = percentageToDeposit #0.67
     self.account = startingBudget
-    self.stat = s.Statistic(detailedStats=detailedStats)
+    self.stat = s.Statistic(detailedStats)
 
   def riskAndBet(self, bet, revenue):
     if bet.isWin():

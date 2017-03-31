@@ -5,7 +5,7 @@ import src.portfolio as p
 
 class Kelly(p.Portfolio):
 
-  def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
+  def __init__(self, startingBudget, detailedStats, percentageToDeposit=0.67):
     super(Kelly, self).__init__(startingBudget, detailedStats, percentageToDeposit)
 
   def calculate(self, bet):
