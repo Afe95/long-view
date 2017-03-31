@@ -14,21 +14,14 @@ class Match(object):
     self.result = r.Result(row[4:10])
     self.odds = o.Odd(row[10:])
 
-  def isInFavour(self, row):
-    firstTeam = row.getClub()
-    pWin = row.pWin()
+  def getOdds(self):
+    return self.odds
 
-    if firstTeam == self.homeTeam:
-      odds = self.odds.bestHome()      
-      if odds > pWin:
-        return (odds, 'H', pWin)
+  def getHomeTeam(self):
+    return self.homeTeam
 
-    elif firstTeam == self.awayTeam:
-      odds = self.odds.bestAway()
-      if odds > pWin:
-        return (odds, 'A', pWin)
-
-    return None
+  def getAwayTeam(self):
+    return self.awayTeam
 
   def teamsPlaying(self):
     return (self.homeTeam, self.awayTeam)
