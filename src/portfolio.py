@@ -15,9 +15,25 @@ class Portfolio(object):
     self.account = startingBudget
     self.stat = s.Statistic(detailedStats=detailedStats)
 
+  def riskAndBet(self, bet, revenue):
+    if bet.isWin():
+      amountToDeposit = revenue * self.percentageToDeposit
+      self.deposit += amountToDeposit
+      self.account += revenue - amountToDeposit
+      bet.updateAfter(self.account)
+      self.stat.win(bet)
+    else:
+      bet.updateAfter(self.account)
+      self.stat.loose(bet)
+
+  def noCashToBet(self, bet):
+    bet.updateFraction(0)
+    bet.updateAfter(self.account)
+    self.stat.noCash(bet)
+
   @abstractmethod
-  def riskAndBet(self, bet):
-    raise NotImplementedError("Should implement riskAndBet()")
+  def calculate(self, bet):
+    raise NotImplementedError("Should implement calculate()")
 
   def getCapital(self):
     return self.account + self.deposit

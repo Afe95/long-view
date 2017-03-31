@@ -9,38 +9,24 @@ class Martingale(p.Portfolio):
     super(Martingale, self).__init__(startingBudget, detailedStats, percentageToDeposit)
     self.prog = 10
 
-  def riskAndBet(self, bet):
+  def calculate(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      gain = self.martingale(bet)
+      fraction = self.prog    
+      amountBet = min(fraction, self.account)
+      if amountBet == self.account:
+        return self.kelly(bet)
+      bet.updateFraction(amountBet)
+      self.account -= amountBet
+      odds = bet.gain()
+      gain = round(amountBet * odds, 2)
       if bet.isWin():
-        amountToDeposit = gain * self.percentageToDeposit
-        self.deposit += amountToDeposit
-        self.account += gain - amountToDeposit
-        bet.updateAfter(self.account)
-        self.stat.win(bet)
+        self.martinGoDown()
       else:
-        bet.updateAfter(self.account)
-        self.stat.loose(bet)
+        self.martinGoUp()
+      super(Martingale, self).riskAndBet(bet, gain)
     else:
-      bet.updateFraction(0)
-      bet.updateAfter(self.account)
-      self.stat.noCash(bet)
-
-  def martingale(self, bet):
-    fraction = self.prog    
-    amountBet = min(fraction, self.account)
-    if amountBet == self.account:
-      return self.kelly(bet)
-    bet.updateFraction(amountBet)
-    self.account -= amountBet
-    odds = bet.gain()
-    gain = round(amountBet * odds, 2)
-    if bet.isWin():
-      self.martinGoDown()
-    else:
-      self.martinGoUp()
-    return gain
+      super(Martingale, self).noCashToBet(bet)
 
   def martinGoUp(self):
     self.prog *= 2

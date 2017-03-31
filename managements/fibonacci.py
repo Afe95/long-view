@@ -11,38 +11,24 @@ class Fibonacci(p.Portfolio):
     super(Fibonacci, self).__init__(startingBudget, detailedStats, percentageToDeposit)
     self.index = 2
 
-  def riskAndBet(self, bet):
+  def calculate(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      gain = self.fibonacci(bet)
+      fraction = self.fibNumber(self.index)    
+      amountBet = min(fraction * 5, self.account)
+      if amountBet == self.account:
+        return self.kelly(bet)
+      bet.updateFraction(amountBet)
+      self.account -= amountBet
+      odds = bet.gain()
+      gain = round(amountBet * odds, 2)
       if bet.isWin():
-        amountToDeposit = gain * self.percentageToDeposit
-        self.deposit += amountToDeposit
-        self.account += gain - amountToDeposit
-        bet.updateAfter(self.account)
-        self.stat.win(bet)
+        self.fibGoDown()
       else:
-        bet.updateAfter(self.account)
-        self.stat.loose(bet)
+        self.fibGoUp()
+      super(Fibonacci, self).riskAndBet(bet, gain)
     else:
-      bet.updateFraction(0)
-      bet.updateAfter(self.account)
-      self.stat.noCash(bet)
-
-  def fibonacci(self, bet):
-    fraction = self.fibNumber(self.index)    
-    amountBet = min(fraction * 5, self.account)
-    if amountBet == self.account:
-      return self.kelly(bet)
-    bet.updateFraction(amountBet)
-    self.account -= amountBet
-    odds = bet.gain()
-    gain = round(amountBet * odds, 2)
-    if bet.isWin():
-      self.fibGoDown()
-    else:
-      self.fibGoUp()
-    return gain
+      super(Fibonacci, self).noCashToBet(bet)
 
   def fibGoUp(self):
     if self.index != 9:

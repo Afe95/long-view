@@ -35,7 +35,7 @@ def startSimulation(season, league, detailedStats):
     nextMatch = timer.nextMatch()
     bet = strategy.toBet(nextMatch)
     if bet != None:
-      portfolio.riskAndBet(bet)
+      portfolio.calculate(bet)
 
   print portfolio
 
