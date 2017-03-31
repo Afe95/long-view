@@ -1,6 +1,8 @@
 import src.database as db
 import src.timer as t
-import src.portfolio as p
+import managements.fibonacci as f
+import managements.kelly as k
+import managements.martingale as m
 import strategies.winnerStrategy as st
 
 """
@@ -27,7 +29,7 @@ def startSimulation(season, league, detailedStats):
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league)
   timer = t.Timer(database, season, league)
-  portfolio = p.Portfolio(100, detailedStats=detailedStats)
+  portfolio = k.Kelly(100, detailedStats=detailedStats)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()

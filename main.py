@@ -10,6 +10,7 @@ if __name__ == "__main__":
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]
   leagues = ["D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
+  # leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
 
   season = sys.argv[1]
   league = None

@@ -1,4 +1,5 @@
 from __future__ import division
+from abc import ABCMeta, abstractmethod
 
 import math
 import scipy.constants as constants
@@ -6,108 +7,20 @@ import stats as s
 
 class Portfolio(object):
 
+  __metaclass__ = ABCMeta
+
   def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
     self.deposit = 0
-    self.index = 2
-    self.prog = 10
     self.percentageToDeposit = percentageToDeposit #0.67
     self.account = startingBudget
     self.stat = s.Statistic(detailedStats=detailedStats)
 
+  @abstractmethod
   def riskAndBet(self, bet):
-    bet.updateBefore(self.account)
-    if self.account > 0:
-      gain = self.calcFraction(bet, "martingale")
-      if bet.isWin():
-        amountToDeposit = gain * self.percentageToDeposit
-        self.deposit += amountToDeposit
-        self.account += gain - amountToDeposit
-        bet.updateAfter(self.account)
-        self.stat.win(bet)
-      else:
-        bet.updateAfter(self.account)
-        self.stat.loose(bet)
-    else:
-      bet.updateFraction(0)
-      bet.updateAfter(self.account)
-      self.stat.noCash(bet)
-
-  def calcFraction(self, bet, mode="kelly"):
-    if mode is "kelly":
-      return self.kelly(bet)
-    elif mode is "fibonacci":
-      return self.fibonacci(bet)
-    elif mode is "martingale":
-      return self.martingale(bet)
-
-  def martingale(self, bet):
-    fraction = self.prog    
-    amountBet = min(fraction, self.account)
-    if amountBet == self.account:
-      return self.kelly(bet)
-    bet.updateFraction(amountBet)
-    self.account -= amountBet
-    odds = bet.gain()
-    gain = round(amountBet * odds, 2)
-    if bet.isWin():
-      self.martinGoDown()
-    else:
-      self.martinGoUp()
-    return gain
-
-  def fibonacci(self, bet):
-    fraction = self.fibNumber(self.index)    
-    amountBet = min(fraction * 5, self.account)
-    if amountBet == self.account:
-      return self.kelly(bet)
-    bet.updateFraction(amountBet)
-    self.account -= amountBet
-    odds = bet.gain()
-    gain = round(amountBet * odds, 2)
-    if bet.isWin():
-      self.fibGoDown()
-    else:
-      self.fibGoUp()
-    return gain
-
-  def kelly(self, bet):
-    b = bet.gain() - 1
-    p = 2 - bet.getPrior()
-    fraction = abs((b*p - (1-p)) / b)
-    if fraction >= 0.45:
-      fraction = fraction / 2
-    bet.updateFraction(fraction)
-    amountBet = round(self.account * fraction, 2)
-    self.account -= amountBet    
-    odds = bet.gain()
-    gain = round(amountBet * odds, 2)
-    return gain
+    raise NotImplementedError("Should implement riskAndBet()")
 
   def getCapital(self):
     return self.account + self.deposit
-
-  def martinGoUp(self):
-    self.prog *= 2
-
-  def martinGoDown(self):
-    self.prog = 10
-
-  def fibGoUp(self):
-    if self.index != 9:
-      self.index += 1
-    else:
-      self.index = 2
-
-  def fibGoDown(self):
-    if self.index >= 4:
-      self.index -= 2
-    if self.index == 3:
-      self.index = 2
-
-  def fibNumber(self, n):
-    golden = constants.golden
-    fib = (math.pow(golden, n) - math.pow(-golden,-n)) / math.sqrt(5)
-    return int(fib)
 
   def __str__(self):
     return "{0}\t{1:>10.2f}".format(self.stat, self.account + self.deposit)
