@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 
+from __future__ import division
+
 import sys
 import simulate as s
 
@@ -26,4 +28,7 @@ if __name__ == "__main__":
     for l in leagues:
       cumSum += s.startSimulation(season, l, detailedStats)
 
-    print "\033[1m\n\t\t\t\t\t\t        {0:>10.2f}\033[0m".format(cumSum)
+    startBudget = len(leagues) * 100
+    ratio = round(((cumSum / startBudget) - 1) * 100, 2)
+
+    print "\033[1m\n\t\t\t\t\t{0:>6.2f}%         {1:>10.2f}\033[0m".format(ratio, cumSum)

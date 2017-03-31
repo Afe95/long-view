@@ -9,6 +9,7 @@ class Portfolio(object):
   def __init__(self, startingBudget, detailedStats=False, percentageToDeposit=0.67):
     self.deposit = 0
     self.index = 2
+    self.prog = 10
     self.percentageToDeposit = percentageToDeposit #0.67
     self.account = startingBudget
     self.stat = s.Statistic(detailedStats=detailedStats)
@@ -16,7 +17,7 @@ class Portfolio(object):
   def riskAndBet(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      gain = self.calcFraction(bet, "kelly")
+      gain = self.calcFraction(bet, "martingale")
       if bet.isWin():
         amountToDeposit = gain * self.percentageToDeposit
         self.deposit += amountToDeposit
@@ -36,11 +37,30 @@ class Portfolio(object):
       return self.kelly(bet)
     elif mode is "fibonacci":
       return self.fibonacci(bet)
+    elif mode is "martingale":
+      return self.martingale(bet)
+
+  def martingale(self, bet):
+    fraction = self.prog    
+    amountBet = min(fraction, self.account)
+    if amountBet == self.account:
+      return self.kelly(bet)
+    bet.updateFraction(amountBet)
+    self.account -= amountBet
+    odds = bet.gain()
+    gain = round(amountBet * odds, 2)
+    if bet.isWin():
+      self.martinGoDown()
+    else:
+      self.martinGoUp()
+    return gain
 
   def fibonacci(self, bet):
-    fraction = self.fibNumber(self.index)
-    bet.updateFraction(fraction)
+    fraction = self.fibNumber(self.index)    
     amountBet = min(fraction * 5, self.account)
+    if amountBet == self.account:
+      return self.kelly(bet)
+    bet.updateFraction(amountBet)
     self.account -= amountBet
     odds = bet.gain()
     gain = round(amountBet * odds, 2)
@@ -65,6 +85,12 @@ class Portfolio(object):
 
   def getCapital(self):
     return self.account + self.deposit
+
+  def martinGoUp(self):
+    self.prog *= 2
+
+  def martinGoDown(self):
+    self.prog = 10
 
   def fibGoUp(self):
     if self.index != 9:
