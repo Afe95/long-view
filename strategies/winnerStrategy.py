@@ -4,10 +4,11 @@ import src.bet as b
 
 class WinnerStrategy(s.Strategy):
 
-  def __init__(self, database, season, league=None):
+  def __init__(self, database, season, league=None, depth=1):
     self.db = database
     self.season = season
     self.league = league
+    self.depth = depth + 1
     self.table = None
     self.getTable()
 
@@ -16,19 +17,19 @@ class WinnerStrategy(s.Strategy):
     self.table = t.Table(table)
 
   def toBet(self, match):
-    odds = self.isInFavour(match, 1)
+    odds = self.isInFavour(match)
     if odds != None:
       return b.Bet(odds, match)
     return None
 
-  def isInFavour(self, match, maxPosition):
+  def isInFavour(self, match):
 
     homeTeam = match.getHomeTeam()
     awayTeam = match.getAwayTeam()
     odds = match.getOdds()
     league = match.getLeague()
 
-    for i in range(1, maxPosition + 1):
+    for i in range(1, self.depth):
       clubPreviousSeason = self.table.getNumber(i, league)
 
       clubName = clubPreviousSeason.getClub()

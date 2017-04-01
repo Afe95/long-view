@@ -1,2 +1,2 @@
-season=1415
+season=1617
 python3 main.py $season

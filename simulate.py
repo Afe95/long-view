@@ -27,7 +27,7 @@ def startSimulation(season, league, detailedStats):
   database.connect()
 
   seasonForStrategy = seasons[seasons.index(season) - 1]
-  strategy = st.WinnerStrategy(database, seasonForStrategy, league)
+  strategy = st.WinnerStrategy(database, seasonForStrategy, league, 1)
   timer = t.Timer(database, season, league)
   portfolio = k.Kelly(100, detailedStats)
 
