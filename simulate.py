@@ -18,18 +18,21 @@ While matches
 print stats
 """
 
-def startSimulation(season, league, detailedStats):
+def startSimulation(season, league, startingBudget, detailedStats):
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]
-  leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
+  # leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
 
   database = db.Database("localhost", "long-view", "afe", "1bellazio")
   database.connect()
 
+  deposit = int(season[-1])%2
+  depth = 2
+
   seasonForStrategy = seasons[seasons.index(season) - 1]
-  strategy = st.WinnerStrategy(database, seasonForStrategy, league, 1)
+  strategy = st.WinnerStrategy(database, seasonForStrategy, league, depth)
   timer = t.Timer(database, season, league)
-  portfolio = k.Kelly(100, detailedStats)
+  portfolio = k.Kelly(startingBudget, detailedStats, deposit)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()

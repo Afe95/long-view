@@ -39,9 +39,12 @@ class Statistic(object):
     for b in self.pastBets:
       xs.append(b.getAccountAfter())
 
-    i = np.argmax(np.maximum.accumulate(xs) - xs)
-    j = np.argmax(xs[:i])
-    maxDD = round(xs[j] - xs[i], 2)
+    try:
+      i = np.argmax(np.maximum.accumulate(xs) - xs)
+      j = np.argmax(xs[:i])
+      maxDD = round(xs[j] - xs[i], 2)
+    except ValueError:
+      maxDD = "None"
 
     strToPrint += "numBets={0:<2}\twins={1:<2}\tlosts={2:<2}\tmaxDD={3:<5}".format(self.numBets, self.numWins, self.numLoss, maxDD)
 

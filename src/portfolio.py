@@ -12,6 +12,7 @@ class Portfolio(object):
   def __init__(self, startingBudget, detailedStats, percentageToDeposit):
     self.deposit = 0
     self.percentageToDeposit = percentageToDeposit #0.67
+    self.startingBudget = startingBudget
     self.account = startingBudget
     self.stat = s.Statistic(detailedStats)
 
@@ -40,7 +41,7 @@ class Portfolio(object):
 
   def __str__(self):
     cumSum = self.account + self.deposit
-    ratio = round(((cumSum / 100) - 1) * 100, 2)
+    ratio = round(((cumSum / self.startingBudget) - 1) * self.startingBudget, 2)
     return "{0}\t{1:>7.2f}%\t{2:>10.2f}".format(self.stat, ratio, cumSum)
 
   def __repr__(self):

@@ -12,9 +12,15 @@ if __name__ == "__main__":
   leagues = ["D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
   # leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
 
-  season = sys.argv[1]
+  season = None
   league = None
   detailedStats = True
+  startingBudget = 100
+
+  try:
+    season = sys.argv[1]
+  except IndexError:
+    pass
 
   try:
     league = sys.argv[2]
@@ -23,16 +29,16 @@ if __name__ == "__main__":
 
   if league != None:
     print("\033[1m{0} {1}\n\033[0m".format(season, league))
-    s.startSimulation(season, league, detailedStats)
+    s.startSimulation(season, league, startingBudget, detailedStats)
   else:
     print("\033[1m{0} {1}\n\033[0m".format(season, leagues))
 
     cumSum = 0
 
     for l in leagues:
-      cumSum += s.startSimulation(season, l, detailedStats)
+      cumSum += s.startSimulation(season, l, startingBudget, detailedStats)
 
-    startBudget = len(leagues) * 100
-    ratio = round(((cumSum / startBudget) - 1) * 100, 2)
+    startBudget = len(leagues) * startingBudget
+    ratio = round(((cumSum / startBudget) - 1) * startingBudget, 2)
 
-    print("\033[1m\n\t\t\t\t\t{0:>6.2f}%         {1:>10.2f}\033[0m".format(ratio, cumSum))
+    print("\033[1m\n\t\t\t\t\t\t\t {0:>6.2f}%\t{1:>10.2f}\033[0m".format(ratio, cumSum))
