@@ -25,17 +25,26 @@ class Odd(object):
 
   def calcHome(self):
     listOfOdds = [self.b365[0], self.bs[0], self.bw[0], self.gb[0], self.iw[0], self.lb[0], self.ps[0], self.so[0], self.sb[0], self.sj[0], self.sy[0], self.vc[0], self.wh[0]]
-    tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    try:
+        tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    except ValueError:
+        tmpMax = 0
     self.bHome = tmpMax
 
   def calcDraw(self):
     listOfOdds = [self.b365[1], self.bs[1], self.bw[1], self.gb[1], self.iw[1], self.lb[1], self.ps[1], self.so[1], self.sb[1], self.sj[1], self.sy[1], self.vc[1], self.wh[1]]
-    tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    try:
+        tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    except ValueError:
+        tmpMax = 0
     self.bDraw = tmpMax
 
   def calcAway(self):
     listOfOdds = [self.b365[2], self.bs[2], self.bw[2], self.gb[2], self.iw[2], self.lb[2], self.ps[2], self.so[2], self.sb[2], self.sj[2], self.sy[2], self.vc[2], self.wh[2]]
-    tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    try:
+        tmpMax = max(filter(lambda x: x is not None, listOfOdds))
+    except ValueError:
+        tmpMax = 0
     self.bAway = tmpMax
 
   def bestHome(self):

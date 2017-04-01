@@ -16,43 +16,32 @@ class WinnerStrategy(s.Strategy):
     self.table = t.Table(table)
 
   def toBet(self, match):
-    league = match.getLeague()
-    firstPreviousSeason = self.table.getNumber(1, league)
-    secondPreviousSeason = self.table.getNumber(2, league)
-    odds = self.isInFavour(match, firstPreviousSeason, secondPreviousSeason)
+    odds = self.isInFavour(match, 1)
     if odds != None:
       return b.Bet(odds, match)
     return None
 
-  def isInFavour(self, match, rowFirst, rowSecond):
-    firstTeam = rowFirst.getClub()
-    secondTeam = rowSecond.getClub()
-
-    pWinFirst = rowFirst.pWin()
-    pWinSecond = rowSecond.pWin()
+  def isInFavour(self, match, maxPosition):
 
     homeTeam = match.getHomeTeam()
     awayTeam = match.getAwayTeam()
     odds = match.getOdds()
+    league = match.getLeague()
 
-    if firstTeam == homeTeam:
-      odds = odds.bestHome()
-      if odds > pWinFirst:
-        return (odds, 'H', pWinFirst)
+    for i in range(1, maxPosition + 1):
+      clubPreviousSeason = self.table.getNumber(i, league)
 
-    elif firstTeam == awayTeam:
-      odds = odds.bestAway()
-      if odds > pWinFirst:
-        return (odds, 'A', pWinFirst)
+      clubName = clubPreviousSeason.getClub()
+      clubPWin = clubPreviousSeason.pWin()
 
-    elif secondTeam == homeTeam:
-      odds = odds.bestHome()
-      if odds > pWinSecond:
-        return (odds, 'H', pWinSecond)
+      if clubName == homeTeam:
+        oddsH = odds.bestHome()
+        if oddsH > clubPWin:
+          return (oddsH, 'H', clubPWin)
 
-    elif secondTeam == awayTeam:
-      odds = odds.bestAway()
-      if odds > pWinSecond:
-        return (odds, 'A', pWinSecond)
+      elif clubName == awayTeam:
+        oddsA = odds.bestAway()
+        if oddsA > clubPWin:
+          return (oddsA, 'A', clubPWin)
 
     return None
