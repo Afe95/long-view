@@ -27,12 +27,12 @@ def startSimulation(season, league, startingBudget, detailedStats):
   database.connect()
 
   deposit = int(season[-1])%2
-  depth = 2
+  depth = 1
 
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league, depth)
   timer = t.Timer(database, season, league)
-  portfolio = k.Kelly(startingBudget, detailedStats, deposit)
+  portfolio = m.Martingale(startingBudget, detailedStats, deposit)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()

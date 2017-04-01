@@ -29,7 +29,7 @@ class WinnerStrategy(s.Strategy):
     odds = match.getOdds()
     league = match.getLeague()
 
-    for i in range(i, self.depth):
+    for i in range(1, self.depth):
       clubPreviousSeason = self.table.getNumber(i, league)
 
       clubName = clubPreviousSeason.getClub()
