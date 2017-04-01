@@ -39,7 +39,9 @@ class Portfolio(object):
     return self.account + self.deposit
 
   def __str__(self):
-    return "{0}\t{1:>10.2f}".format(self.stat, self.account + self.deposit)
+    cumSum = self.account + self.deposit
+    ratio = round(((cumSum / 100) - 1) * 100, 2)
+    return "{0}\t{1:>7.2f}%\t{2:>10.2f}".format(self.stat, ratio, cumSum)
 
   def __repr__(self):
     return self.__str__()
