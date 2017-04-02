@@ -15,9 +15,6 @@ class Bet(object):
   def isWin(self):
     return self.match.getResult() == self.expectedResult
 
-  def gain(self):
-    return self.odds
-
   def updateBefore(self, before):
     self.accountBefore = before
 
@@ -29,6 +26,9 @@ class Bet(object):
 
   def getAccountAfter(self):
     return self.accountAfter
+
+  def getOdds(self):
+    return self.odds
 
   def __str__(self):
     if self.expectedResult != self.match.getResult():

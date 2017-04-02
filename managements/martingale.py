@@ -20,7 +20,7 @@ class Martingale(p.Portfolio):
         return self.kelly.calculate(bet)
       bet.updateFraction(amountBet)
       self.account -= amountBet
-      odds = bet.gain()
+      odds = bet.getOdds()
       gain = round(amountBet * odds, 2)
       if bet.isWin():
         self.martinGoDown()

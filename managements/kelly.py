@@ -11,7 +11,7 @@ class Kelly(p.Portfolio):
   def calculate(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
-      b = bet.gain() - 1
+      b = bet.getOdds() - 1
       p = 2 - bet.getPrior()
       fraction = abs((b*p - (1-p)) / b)
       if fraction >= 0.45:
@@ -19,7 +19,7 @@ class Kelly(p.Portfolio):
       bet.updateFraction(fraction)
       amountBet = round(self.account * fraction, 2)
       self.account -= amountBet    
-      odds = bet.gain()
+      odds = bet.getOdds()
       gain = round(amountBet * odds, 2)
       super(Kelly, self).riskAndBet(bet, gain)
     else:

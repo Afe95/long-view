@@ -61,3 +61,6 @@ if __name__ == "__main__":
       startBudget = len(leagues) * startingBudget
       ratio = round(((cumSum / startBudget) - 1) * startingBudget, 2)
       print("\033[1m\n\t\t\t\t\t\t\t {0:>6.2f}%\t{1:>10.2f}\033[0m".format(ratio, cumSum))
+
+    history.createHistogramWins()
+    history.createHistogramLosts()
