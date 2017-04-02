@@ -4,12 +4,13 @@ import src.bet as b
 
 class WinnerStrategy(s.Strategy):
 
-  def __init__(self, database, season, league=None, depth=1):
+  def __init__(self, database, season, league=None, depth=1, threshold=7):
     self.db = database
     self.season = season
     self.league = league
     self.depth = depth + 1
     self.table = None
+    self.threshold = threshold
     self.getTable()
 
   def getTable(self):
@@ -37,12 +38,12 @@ class WinnerStrategy(s.Strategy):
 
       if clubName == homeTeam:
         oddsH = odds.bestHome()
-        if oddsH > clubPWin:
+        if oddsH > clubPWin and oddsH >= self.threshold:
           return (oddsH, 'H', clubPWin)
 
       elif clubName == awayTeam:
         oddsA = odds.bestAway()
-        if oddsA > clubPWin:
+        if oddsA > clubPWin and oddsA >= self.threshold:
           return (oddsA, 'A', clubPWin)
 
     return None

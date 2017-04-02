@@ -30,13 +30,12 @@ class History(object):
       else:
         freq[odds] = 1
 
-
     avg = round(np.mean(historyOfOdds), 2)
     sdev = round(np.std(historyOfOdds), 3)
     print("Wins  avg={0}\tst.dev={1}".format(avg, sdev))
-    # width = 4.0
-    # plt.bar(list(freq.keys()), freq.values(), width)
-    # plt.show()
+    width = 4.0
+    plt.bar(list(freq.keys()), freq.values(), width)
+    plt.draw()
 
   def createHistogramLosts(self):
     freq = {}
@@ -54,6 +53,18 @@ class History(object):
     avg = round(np.mean(historyOfOdds), 2)
     sdev = round(np.std(historyOfOdds), 3)
     print("Losts avg={0}\tst.dev={1}".format(avg, sdev))
-    # width = 4.0
-    # plt.bar(list(freq.keys()), freq.values(), width)
-    # plt.show()
+    width = 4.0
+    plt.bar(list(freq.keys()), freq.values(), width)
+    plt.draw()
+
+  def normalise(self, array):
+    avg = np.mean(array)
+    sdev = np.std(array)
+
+    arrayNormalised = []
+
+    for n in array:
+      val = (n-avg)/sdev
+      arrayNormalised.append(val)
+
+    return arrayNormalised

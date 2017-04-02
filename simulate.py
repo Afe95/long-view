@@ -18,7 +18,7 @@ While matches
 print stats
 """
 
-def startSimulation(season, league, startingBudget, detailedStats):
+def startSimulation(season, league, startingBudget, detailedStats, threshold=1.25):
 
   seasons = ["0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617"]
   # leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
@@ -26,10 +26,10 @@ def startSimulation(season, league, startingBudget, detailedStats):
   database = db.Database("localhost", "long-view", "afe", "1bellazio")
 
   deposit = int(season[-1])%2
-  depth = 1
+  depth = 2
 
   seasonForStrategy = seasons[seasons.index(season) - 1]
-  strategy = st.WinnerStrategy(database, seasonForStrategy, league, depth)
+  strategy = st.WinnerStrategy(database, seasonForStrategy, league, depth, threshold)
   timer = t.Timer(database, season, league)
   portfolio = k.Kelly(startingBudget, detailedStats, deposit)
 
