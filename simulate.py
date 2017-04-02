@@ -24,7 +24,6 @@ def startSimulation(season, league, startingBudget, detailedStats):
   # leagues = ["E0", "D1", "I1", "SP1", "F1", "N1", "P1", "G1"]
 
   database = db.Database("localhost", "long-view", "afe", "1bellazio")
-  database.connect()
 
   deposit = int(season[-1])%2
   depth = 1
@@ -32,7 +31,7 @@ def startSimulation(season, league, startingBudget, detailedStats):
   seasonForStrategy = seasons[seasons.index(season) - 1]
   strategy = st.WinnerStrategy(database, seasonForStrategy, league, depth)
   timer = t.Timer(database, season, league)
-  portfolio = m.Martingale(startingBudget, detailedStats, deposit)
+  portfolio = k.Kelly(startingBudget, detailedStats, deposit)
 
   while not timer.isEnded():
     nextMatch = timer.nextMatch()
@@ -40,6 +39,4 @@ def startSimulation(season, league, startingBudget, detailedStats):
     if bet != None:
       portfolio.calculate(bet)
 
-  print(portfolio)
-
-  return portfolio.getCapital()
+  return portfolio

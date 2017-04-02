@@ -9,6 +9,7 @@ class Database(object):
     self.password = password
     self.conn = None
     self.cur = None
+    self.connect()
 
   def connect(self):
     self.conn = pg.connect(database=self.database, user=self.user, password=self.password, host=self.host)

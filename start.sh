@@ -1,2 +1,2 @@
-season=1213
-python3 main.py $season
+season=1617
+python3 main.py

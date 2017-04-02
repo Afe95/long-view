@@ -1,4 +1,5 @@
 import numpy as np
+import src.history as s
 
 class Statistic(object):
 
@@ -22,6 +23,9 @@ class Statistic(object):
   def noCash(self, bet):
     self.numBets += 1
     self.pastBets.append(bet)
+
+  def getPastBets(self):
+    return self.pastBets
 
   def __str__(self):
     strToPrint = ""

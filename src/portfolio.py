@@ -39,6 +39,9 @@ class Portfolio(object):
   def getCapital(self):
     return self.account + self.deposit
 
+  def getStatObject(self):
+    return self.stat
+
   def __str__(self):
     cumSum = self.account + self.deposit
     ratio = round(((cumSum / self.startingBudget) - 1) * self.startingBudget, 2)
