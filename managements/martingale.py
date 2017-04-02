@@ -10,14 +10,14 @@ class Martingale(p.Portfolio):
     super(Martingale, self).__init__(startingBudget, detailedStats, percentageToDeposit)
     self.kelly = k.Kelly(startingBudget, detailedStats, percentageToDeposit)
     self.losses = 0
-    self.fixedWin = 4
+    self.fixedWin = 10
 
   def calculate(self, bet):
     bet.updateBefore(self.account)
     if self.account > 0:
       odds = bet.getOdds()
       amountBet = (self.losses + self.fixedWin) / (odds - 1)
-      if amountBet == self.account:
+      if amountBet >= self.account:
         return self.kelly.calculate(bet)
       bet.updateFraction(amountBet)
       self.account -= amountBet

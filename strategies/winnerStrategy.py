@@ -11,7 +11,7 @@ class WinnerStrategy(s.Strategy):
     self.depth = depth + 1
     self.table = None
     self.thrL = threshold
-    self.thrU = 5.7
+    self.thrU = 5.5
     self.getTable()
 
   def getTable(self):

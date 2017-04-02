@@ -50,7 +50,8 @@ if __name__ == "__main__":
 
   if league != None and season != None:
     print("\033[1m{0} {1}\n\033[0m".format(season, league))
-    runSimulation(season, league, startingBudget, detailedStats)
+    portfolio = runSimulation(season, league, startingBudget, detailedStats)
+    print(portfolio)
 
   else:
 
@@ -81,4 +82,4 @@ if __name__ == "__main__":
 
     history.createHistogramWins()
     history.createHistogramLosts()
-    # plt.show()
+    plt.show()
